@@ -22,6 +22,7 @@
         "issues": "https://github.com/alexlis/yii2-bootstrap-colorpicker/issues",
         "source": "https://github.com/alexlis/yii2-bootstrap-colorpicker"
     },
+    "minimum-stability": "dev",
     "require": {
         "yiisoft/yii2": "~2.0",
         "yiisoft/yii2-bootstrap": "~2.0.0",
