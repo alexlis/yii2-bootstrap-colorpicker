@@ -6,7 +6,7 @@
 * @version
 * @date 2016-06-30
  */
-namespace alexlis;
+namespace alexlis\colorpicker;
 
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;

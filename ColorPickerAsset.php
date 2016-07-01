@@ -7,7 +7,7 @@
 * @date 2016-06-30
  */
 
-namespace alexlis;
+namespace alexlis\colorpicker;
 
 use yii\web\AssetBundle;
 
