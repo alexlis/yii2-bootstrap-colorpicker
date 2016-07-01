@@ -6,7 +6,7 @@
 * @version
 * @date 2016-06-30
  */
-namespace alexlis\colorpicker;
+namespace alexlis;
 
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -23,21 +23,20 @@ class ColorPicker extends InputWidget
 
     public $containerOptions = [];
 
-    public $template = "{input}{reset}{button}";
+    public $template = "{input}{button}";
 
-    public $resetButtonIcon = 'glyphicon glyphicon-remove';
-
-    public $pickButtonIcon = 'glyphicon glyphicon-th';
+    private $id = '';
 
 
     public function init()
     {
         parent::init();
-        Html::addCssClass($this->containerOptions, 'input-group colorpicker');
+        Html::addCssClass($this->containerOptions, 'input-group colorpicker-component');
         Html::addCssClass($this->options, 'form-control');
+        $this->id =$this->options['id'];
+        $this->containerOptions['id'] = $this->id;
         $this->options['readonly'] = 'readonly';
-
-
+        unset($this->options['id']);
     }
 
     /**
@@ -50,19 +49,12 @@ class ColorPicker extends InputWidget
             ? Html::activeTextInput($this->model, $this->attribute, $this->options)
             : Html::textInput($this->name, $this->value, $this->options);
 
-        if (!$this->inline) {
-            $resetIcon = Html::tag('span', '', ['class' => $this->resetButtonIcon]);
-            $pickIcon = Html::tag('span', '', ['class' => $this->pickButtonIcon]);
-            $resetAddon = Html::tag('span', $resetIcon, ['class' => 'input-group-addon']);
-            $pickerAddon = Html::tag('span', $pickIcon, ['class' => 'input-group-addon']);
-        } else {
-            $resetAddon = $pickerAddon = '';
-        }
+        $pickerAddon = Html::tag('span', '<i></i>', ['class' => 'input-group-addon']);
 
         if (strpos($this->template, '{button}') !== false) {
             $input = Html::tag(
                 'div',
-                strtr($this->template, ['{input}' => $input, '{reset}' => $resetAddon, '{button}' => $pickerAddon]),
+                strtr($this->template, ['{input}' => $input, '{button}' => $pickerAddon]),
                 $this->containerOptions
             );
         }
@@ -81,12 +73,8 @@ class ColorPicker extends InputWidget
         ColorPickerAsset::register($view);
         // @codeCoverageIgnoreEnd
 
-        $id = $this->options['id'];
+        $id = $this->id;
         $selector = ";jQuery('#$id')";
-
-        if (strpos($this->template, '{button}') !== false || $this->inline) {
-            $selector .= ".parent()";
-        }
 
         $options = !empty($this->clientOptions) ? Json::encode($this->clientOptions) : '';
 
