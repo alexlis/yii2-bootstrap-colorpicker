@@ -33,8 +33,8 @@ class ColorPicker extends InputWidget
     public function init()
     {
         parent::init();
-        Html::addCssClass($this->containerOptions, 'input-group date');
-         Html::addCssClass($this->options, 'form-control');
+        Html::addCssClass($this->containerOptions, 'input-group colorpicker');
+        Html::addCssClass($this->options, 'form-control');
         $this->options['readonly'] = 'readonly';
 
 
@@ -59,7 +59,7 @@ class ColorPicker extends InputWidget
             $resetAddon = $pickerAddon = '';
         }
 
-        if (strpos($this->template, '{button}') !== false || $this->inline) {
+        if (strpos($this->template, '{button}') !== false) {
             $input = Html::tag(
                 'div',
                 strtr($this->template, ['{input}' => $input, '{reset}' => $resetAddon, '{button}' => $pickerAddon]),
